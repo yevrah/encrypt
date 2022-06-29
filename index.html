@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="assets/style.css" />
+    <script src="assets/triplesec-4.0.3.js"></script>
+    <title>Quick Encrypt and Decrypt</title>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>A Quick Encrypt and Decrypt Tool</h1>
+      <div class="p">Use at your own peril. This software offers no guarantees and may not be secure. It is useful only for low-risk items. Do not store your nation's nuclear launch codes with this!</div>
+      <div class="line"></div>
+      <div class="p">
+        <label class="label" for="data">Data to encrypt or decrypt</label>
+        <textarea class="textarea" id="data"></textarea>
+      </div>
+      <div class="p">
+        <label class="label" for="user">Enter a username<sup>&#8224;</sup></label>
+        <input class="input" id="user" type="input" value="" />
+      </div>
+      <div class="p">
+        <label class="label" for="pass">Enter a password (You must provide it twice to encode)</label>
+        <input class="input" id="pass" type="password" value="" />
+        <input class="input" id="pass_confirm" type="password" value="" />
+      </div>
+      <div class="p footnote">
+        &#8224; The username and password is combined to create the encryption key. This format is used so that it triggers your password. The username can be considered to be a public reference with the password part used as a blind.
+      </div>
+
+      <div class="buttons">
+        <button id="encode_decode" class="button">Encode/Decode</button>
+      </div>
+
+      <div class="line"></div>
+      <div class="p">
+        <label class="label" for="result">Decoded String</label>
+        <textarea class="textarea" id="result_dec"></textarea>
+      </div>
+
+      <div class="p">
+        <label class="label" for="result">Encoded String</label>
+        <textarea class="textarea" id="result_enc"></textarea>
+      </div>
+
+
+      <div class="line"></div>
+       <h1>About TripleSec (The Encryption Engine)</h1>
+       <div class="p">
+         <a href="https://keybase.io/triplesec/">TripleSec</a> is a simple,
+         double-paranoid, symmetric encryption library for a whole bunch of
+         languages. It encrypts data with Salsa 20, AES, so that a someday
+         compromise of one of the ciphers will not expose the
+         secret.
+       </div>
+
+
+      <footer class="footer">
+        <div class="line"></div>
+        <small class="about">July 2022 by <a href="https://github.com/yevrah">yevrah</a></small>
+      </footer>
+    </div>
+    <script src="assets/script.js"></script>
+  </body>
+</html>

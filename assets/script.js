@@ -12,9 +12,11 @@ let result_dec = document.getElementById('result_dec');
 let button = document.getElementById('encode_decode');
 button.addEventListener('click', function () { crypt(); }, false);
 
-function crypt () {
-  console.log('Crypt() accessed');
+window.addEventListener("keydown", function(e) {
+  if(e.keyCode === 69 && e.metaKey) { crypt() }
+})
 
+function crypt () {
   var d = (data.value).replace("'", "\'");
   result_enc.value="";
   result_dec.value="";
@@ -36,8 +38,6 @@ function crypt () {
     }
 
   });
-
-
 
 
   if(pass.value !== pass_confirm.value) 
@@ -62,5 +62,4 @@ function crypt () {
     }
 
   });
-
 }

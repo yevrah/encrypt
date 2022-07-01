@@ -1,10 +1,7 @@
 let data = document.getElementById('data');
-
 let user = document.getElementById('user')
-
 let pass = document.getElementById('pass');
 let pass_confirm = document.getElementById('pass_confirm');
-
 let ciphermode = document.getElementById('ciphermode');
 let result_enc = document.getElementById('result_enc');
 let result_dec = document.getElementById('result_dec');
@@ -17,7 +14,11 @@ window.addEventListener("keydown", function(e) {
 })
 
 function crypt () {
-  var d = (data.value).replace("'", "\'");
+
+  // Replace header and footer, and remove 80 character wrapping
+  var ciphertext = data.value.replace(/==::.*/g,"").replace(/\n/g,"");
+
+  // Reset previous entries
   result_enc.value="";
   result_dec.value="";
 
@@ -27,7 +28,7 @@ function crypt () {
 
   triplesec.decrypt ({
 
-    data:          triplesec.Buffer.from(data.value, "hex"),
+    data:          triplesec.Buffer.from(ciphertext, "hex"),
     key:           triplesec.Buffer.from(key),
     progress_hook: function (obj) { /* ... */ }
 
@@ -58,8 +59,29 @@ function crypt () {
 
     if (! err) {
       var ciphertext = buff.toString('hex');
-      result_enc.value = ciphertext;
+      // Wrap at 80 characers
+      ciphertext = ciphertext.replace(/(.{80})/g, "$1\n");
+
+      let header = `==::encrypted::user::${user.value}::==`.padEnd(80,"=") + "\n";
+      let footer = "\n==::end::=======================================================================";
+
+      result_enc.value = header + ciphertext + footer;
     }
 
   });
 }
+
+
+
+
+// Detect OS Version - helps with keys
+let os = 'Unkown';
+let meta_key = "&#8984";
+
+if (navigator.appVersion.indexOf('Win') != -1)    {os = 'Windows'; meta_key = 'Windows Key'; }
+if (navigator.appVersion.indexOf('Mac') != -1)    {os = 'MacOS'; meta_key = '&#8984;'; }
+if (navigator.appVersion.indexOf('X11') != -1)    {os = 'UNIX'; meta_key = 'Meta Key'; }
+if (navigator.appVersion.indexOf('Linux') != -1)  {os = 'Linux'; meta_key = 'Meta Key'; }
+
+document.getElementById('mkey').innerHTML = meta_key;
+
